@@ -16,6 +16,8 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation project(':prj1')
     implementation project(':prj2')
+    implementation project(':prj3')
+    implementation project(':prj4')
 }
 
 test {

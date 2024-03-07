@@ -3,5 +3,10 @@ rootProject.name = 'jacoco-test'
 include(':prj1')
 include(':prj2')
 include(':test')
+include(':prj3')
+include(':prj4')
 
 includeBuild '../jacoco-test-cml'
+
+project(':prj3').projectDir = new File('../jacoco-test-cml/prj3')
+project(':prj4').projectDir = new File('../jacoco-test-cml/prj4')
