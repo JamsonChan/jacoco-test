@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id "org.sonarqube" version "4.4.1.3373"
 }
 
 group = 'org.jamson.jacoco'
@@ -38,5 +39,15 @@ build {
     dependsOn(gradle.includedBuild('jacoco-test-cml').task(':build'))
     jacocoCmlTestPrjs.each { prjName, dir ->
         dependsOn(gradle.includedBuild('jacoco-test-cml').task(":$prjName:build"))
+    }
+}
+
+sonar {
+    properties {
+        property "sonar.projectKey", "jacoco-test"
+        property "sonar.projectName", "jacoco-test"
+        property "sonar.host.url=https://sonarqube.pxinternal.com"
+        property "sonar.token=sqp_11237f7d095e90f92a82c6b0a7a31abfbe82f25c"
+        property "sonar.coverage.jacoco.xmlReportPaths='test/build/reports/jacoco/testCodeCoverageReport/testCodeCoverageReport.xml"
     }
 }
