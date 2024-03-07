@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'jacoco'
+    id 'jacoco-report-aggregation'
 }
 
 group = 'org.jamson.jacoco.test'
@@ -18,4 +20,20 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+jacoco {
+    toolVersion = "0.8.11"
+}
+
+reporting {
+    reports {
+        testCodeCoverageReport(JacocoCoverageReport) {
+            testType = TestSuiteType.UNIT_TEST
+        }
+    }
+}
+
+tasks.named('check') {
+    dependsOn tasks.named('testCodeCoverageReport', JacocoReport)
 }
