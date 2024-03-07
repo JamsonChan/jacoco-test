@@ -3,3 +3,5 @@ rootProject.name = 'jacoco-test'
 include(':prj1')
 include(':prj2')
 include(':test')
+
+includeBuild '../jacoco-test-cml'

@@ -17,3 +17,26 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+ext {
+    jacocoCmlTestPrjs = [
+        'prj3' : "$rootDir/../jacoco-test-cml/prj3",
+        'prj4' : "$rootDir/../jacoco-test-cml/prj4",
+    ]
+}
+
+clean {
+    // also clean cml
+    dependsOn(gradle.includedBuild('jacoco-test-cml').task(':clean'))
+    jacocoCmlTestPrjs.each { prjName, dir ->
+        dependsOn(gradle.includedBuild('jacoco-test-cml').task(":$prjName:clean"))
+    }
+}
+
+build {
+    // also build cml
+    dependsOn(gradle.includedBuild('jacoco-test-cml').task(':build'))
+    jacocoCmlTestPrjs.each { prjName, dir ->
+        dependsOn(gradle.includedBuild('jacoco-test-cml').task(":$prjName:build"))
+    }
+}
