@@ -1,7 +1,8 @@
 plugins {
     id 'java'
-    id 'jacoco'
+//    id 'jacoco'
     id 'jacoco-report-aggregation'
+//    id 'jvm-test-suite'
 }
 
 group = 'org.jamson.jacoco.test'
@@ -16,26 +17,56 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation project(':prj1')
     implementation project(':prj2')
-    implementation project(':prj3')
-    implementation project(':prj4')
+    implementation 'org.jamson.jacoco:prj3:1.0-SNAPSHOT'
+    implementation 'org.jamson.jacoco:prj4:1.0-SNAPSHOT'
 }
 
 test {
     useJUnitPlatform()
 }
 
-jacoco {
-    toolVersion = "0.8.11"
-}
+//jacoco {
+//    toolVersion = "0.8.11"
+//}
 
-reporting {
-    reports {
-        testCodeCoverageReport(JacocoCoverageReport) {
-            testType = TestSuiteType.UNIT_TEST
-        }
-    }
-}
+//jacocoTestReport {
+//    dependsOn test
+//    reports {
+//        xml.required = true
+//        csv.required = true
+//        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+//    }
+//}
 
-tasks.named('check') {
-    dependsOn tasks.named('testCodeCoverageReport', JacocoReport)
+//reporting {
+//    reports {
+//        testCodeCoverageReport(JacocoCoverageReport) {
+//            testType = TestSuiteType.UNIT_TEST
+//        }
+//    }
+//}
+
+testCodeCoverageReport.dependsOn test
+testCodeCoverageReport.reports {
+//        xml.required = true
+//        csv.required = true
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
 }
+//    // 配置 JacocoReport 任務的相關屬性
+//    // ...
+//
+//    doFirst {
+//        // 在執行之前，檢查是否有指定 --tests 參數
+//        if (project.hasProperty("tests")) {
+//            // 使用 --tests 參數值來過濾要執行的測試案例
+//            def testsFilter = project.getProperty("tests")
+//            println('<ZKLOGGG>' + testsFilter)
+//            project.tasks.test.filter {
+//                it.getDisplayName().toLowerCase().contains(testsFilter.toLowerCase())
+//            }
+//        }
+//    }
+
+//tasks.named('check') {
+//    dependsOn tasks.named('testCodeCoverageReport', JacocoReport)
+//}

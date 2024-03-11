@@ -3,10 +3,15 @@ rootProject.name = 'jacoco-test'
 include(':prj1')
 include(':prj2')
 include(':test')
-include(':prj3')
-include(':prj4')
+//include(':prj3')
+//include(':prj4')
 
-includeBuild '../jacoco-test-cml'
+includeBuild('../jacoco-test-cml') {
+	dependencySubstitution {
+		substitute module('org.jamson.jacoco:prj3') using project(':prj3')
+		substitute module('org.jamson.jacoco:prj4') using project(':prj4')
+	}
+}
 
-project(':prj3').projectDir = new File('../jacoco-test-cml/prj3')
-project(':prj4').projectDir = new File('../jacoco-test-cml/prj4')
+//project(':prj3').projectDir = new File('../jacoco-test-cml/prj3')
+//project(':prj4').projectDir = new File('../jacoco-test-cml/prj4')ㄊ
